@@ -1,24 +1,25 @@
 import dotenv from "dotenv";
 import express from "express";
 import mongoose from "mongoose";
+import authRouter from "./routes/auth.route.js";
+import userRouter from "./routes/user.route.js";
 dotenv.config();
-
-const app = express();
-const port = 5000;
 
 mongoose
   .connect(process.env.MONGO_URI)
   .then(() => {
-    console.log("connected to mongodb");
+    console.log("Connected to MongoDB!");
   })
   .catch((err) => {
     console.log(err);
   });
 
-app.get("/", (req, res) => {
-  res.send("Hello World!");
+const app = express();
+app.use(express.json());
+
+app.listen(3000, () => {
+  console.log("Server is running on port 3000!");
 });
 
-app.listen(port, () => {
-  console.log(`Panda estate running ${port}`);
-});
+app.use("/api/user", userRouter);
+app.use("/api/auth", authRouter);
