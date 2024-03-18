@@ -78,3 +78,24 @@ export const signOut = async (req, res, next) => {
     next(error);
   }
 };
+
+export const makeAdmin = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const user = await User.findByIdAndUpdate(
+      id,
+      { role: "admin" },
+      { new: true }
+    );
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    res.json(user);
+  } catch (error) {
+    console.error("Error making user admin:", error);
+    res.status(500).json({ message: "Server error" });
+  }
+};
