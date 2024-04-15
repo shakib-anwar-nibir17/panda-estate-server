@@ -25,7 +25,6 @@ export const signin = async (req, res, next) => {
     if (!validPassword) return next(errorHandler(401, "Wrong credentials!"));
 
     const token = jwt.sign({ id: validUser._id }, process.env.JWT_SECRET);
-    console.log(token);
     const { password: pass, ...rest } = validUser._doc;
     res
       .cookie("access_token", token, { httpOnly: true })
@@ -61,7 +60,6 @@ export const google = async (req, res, next) => {
       });
       await newUser.save();
       const token = jwt.sign({ id: newUser._id }, process.env.JWT_SECRET);
-      console.log(token);
       const { password: pass, ...rest } = newUser._doc;
       res
         .cookie("access_token", token, { httpOnly: true })
