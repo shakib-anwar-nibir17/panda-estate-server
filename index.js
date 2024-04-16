@@ -18,6 +18,7 @@ mongoose
   });
 
 const app = express();
+const port = process.env.PORT || 3000;
 app.use(express.json());
 app.use(
   cors({
@@ -31,8 +32,8 @@ app.get("/", (req, res) => {
   res.send("Welcome to the API!");
 });
 
-app.listen(3000, () => {
-  console.log("Server is running on port 3000!");
+app.listen(port, () => {
+  console.log("Server is running on port");
 });
 
 app.use("/api/user", userRouter);
