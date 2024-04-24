@@ -23,7 +23,7 @@ app.use(express.json());
 app.use(
   cors({
     // origin: "http://localhost:5173",
-    origin: "*",
+    origin: "https://panda-estate-sn17.web.app",
     credentials: true,
   })
 );
